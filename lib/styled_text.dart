@@ -11,7 +11,9 @@ class StyledText extends StatelessWidget {
     return Text(
       text,
       style: TextStyle(
-          color: const Color.fromARGB(255, 255, 255, 255), fontSize: size),
+        color: const Color.fromARGB(255, 255, 255, 255),
+        fontSize: size,
+      ),
       textAlign: TextAlign.center,
     );
   }

@@ -15,10 +15,21 @@ class DiceRoller extends StatefulWidget {
 }
 
 class _DiceRollerState extends State<DiceRoller> {
-  var diceNumber = 1;
+  var diceNumber1 = 0;
+  var diceNumber2 = 0;
+  var result = "";
   void rollDice() {
     setState(() {
-      diceNumber = randomizer.nextInt(6) + 1;
+      diceNumber1 = randomizer.nextInt(6) + 1;
+      diceNumber2 = randomizer.nextInt(6) + 1;
+
+      if (diceNumber1 > diceNumber2) {
+        result = "The first dice won!";
+      } else if (diceNumber1 == diceNumber2) {
+        result = "It's a draw!";
+      } else {
+        result = "The second dice won!";
+      }
     });
   }
 
@@ -27,7 +38,13 @@ class _DiceRollerState extends State<DiceRoller> {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Image.asset("assets/images/dice-$diceNumber.png", width: 200),
+        if (diceNumber1 > 0)
+          Column(
+            children: [
+              Image.asset("assets/images/dice-$diceNumber1.png", width: 200),
+              Image.asset("assets/images/dice-$diceNumber2.png", width: 200),
+            ],
+          ),
         Container(
           margin: const EdgeInsets.only(top: 35),
           child: Column(
@@ -42,8 +59,11 @@ class _DiceRollerState extends State<DiceRoller> {
                   size: 30,
                 ),
               ),
-              const StyledText(
-                  text: "CLick this button to roll the dice.", size: 20)
+              StyledText(
+                  text: diceNumber1 == 0
+                      ? "Click this button to roll the dice and see who wins."
+                      : result,
+                  size: 20)
             ],
           ),
         )
